@@ -1,4 +1,4 @@
-AWSTemplateFormatVersion: '2010-09-09'
+
 Description: 'Template for provisioning a web server in AWS'
 
 Resources:
