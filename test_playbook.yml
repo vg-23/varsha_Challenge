@@ -1,0 +1,27 @@
+# Test 1: Check if Apache HTTP server is installed and running
+aws ssm send-command \
+  --document-name "AWS-RunShellScript" \
+  --targets "Key=tag:Name,Values=WebServerInstance" \
+  --parameters commands=["ps aux | grep httpd"] \
+  --timeout-seconds 600 \
+  --output text \
+  --query "Command.CommandId"
+
+# Test 2: Check if the index.html file exists with the correct content
+aws ssm send-command \
+  --document-name "AWS-RunShellScript" \
+  --targets "Key=tag:Name,Values=WebServerInstance" \
+  --parameters commands=["cat /var/www/html/index.html"] \
+  --timeout-seconds 600 \
+  --output text \
+  --query "Command.CommandId"
+
+# Test 3: Check if HTTP port 80 is open
+aws ec2 describe-instance-attribute \
+  --instance-id <instance-id> \
+  --attribute groupSet
+
+# Test 4: Check if HTTPS port 443 is open
+aws ec2 describe-instance-attribute \
+  --instance-id <instance-id> \
+  --attribute groupSet
