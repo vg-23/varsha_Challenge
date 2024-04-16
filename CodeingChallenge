@@ -1,0 +1,34 @@
+Coding
+Please solve the below problem in python or go. You don't need to do the submission on the web site. Include the program in the repo above.
+1.	https://www.hackerrank.com/challenges/validating-credit-card-number/problem
+
+Solution::::
+import re
+
+def validate_credit_card(card_number):
+    # Define the regex pattern
+    pattern = r'^[456]\d{3}(-?\d{4}){3}$'
+    
+    # Check if the pattern matches the card number
+    if re.match(pattern, card_number):
+        # Remove hyphens and check for consecutive repeated digits
+        card_number = card_number.replace('-', '')
+        if re.search(r'(\d)\1{3,}', card_number):
+            return False
+        else:
+            return True
+    else:
+        return False
+
+def main():
+    # Get credit card number input from user
+    card_number = input("Enter the credit card number: ")
+    
+    # Validate the credit card number
+    if validate_credit_card(card_number):
+        print("Valid credit card number")
+    else:
+        print("Invalid credit card number")
+
+if __name__ == "__main__":
+    main()
